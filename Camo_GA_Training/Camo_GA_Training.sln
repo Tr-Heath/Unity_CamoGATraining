@@ -1,12 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camo_GA_Training", "Camo_GA_Training.csproj", "{A1899858-A469-0B24-2FE1-41B84BD90A24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1899858-A469-0B24-2FE1-41B84BD90A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1899858-A469-0B24-2FE1-41B84BD90A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1899858-A469-0B24-2FE1-41B84BD90A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1899858-A469-0B24-2FE1-41B84BD90A24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
