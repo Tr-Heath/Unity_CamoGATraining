@@ -9,6 +9,7 @@ public class DNA : MonoBehaviour {
     Collider2D sCollider;
     SpriteRenderer sRenderer;
     public GeneColor geneColor;
+	public GeneSize geneSize;
 
     //gene for color, floats for Red, Green, Blue
     public struct GeneColor {
@@ -19,6 +20,15 @@ public class DNA : MonoBehaviour {
 			r = redValue;
 			g = greenValue;
 			b = blueValue;
+		}
+	};
+
+public struct GeneSize {
+		public float x; 
+		public float y; 
+		public GeneSize(float xValue, float yValue){
+			x = xValue;
+			y = yValue;
 		}
 	};
 
@@ -35,6 +45,7 @@ public class DNA : MonoBehaviour {
 		sRenderer = GetComponent<SpriteRenderer>();
 		sCollider = GetComponent<Collider2D>();
         sRenderer.color = new Color(geneColor.r, geneColor.g, geneColor.b);
+		this.transform.localScale = new Vector3(geneSize.x, geneSize.y);
 	}
 	
 	// Update is called once per frame

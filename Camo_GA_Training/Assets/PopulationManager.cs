@@ -17,16 +17,18 @@ public class PopulationManager : MonoBehaviour {
     {
         guiStyle.fontSize = 50;
         guiStyle.normal.textColor = Color.white;
-        GUI.Label(new Rect(10, 10, 100, 20), "Generation: " + generation, guiStyle);
-        GUI.Label(new Rect(10, 10, 100, 20), "Trial Time: " + (int)elapsed, guiStyle);
+        GUI.Label(new Rect(10, 10, 100, 50), "Generation: " + generation, guiStyle);
+        GUI.Label(new Rect(10, 60, 100, 50), "Trial Time: " + (int)elapsed, guiStyle);
     }
     // Use this for initialization
     void Start () {
 		for(int i = 0; i < populationSize; i++)
 		{
 			Vector3 pos = new Vector3(Random.Range(-9,9), Random.Range(-4.5f,4.5f),0);
-			GameObject go = Instantiate(personPrefab, pos, Quaternion.identity);
+		    GameObject go = Instantiate(personPrefab, pos, Quaternion.identity);
+            // GameObject go = Instantiate()
             go.GetComponent<DNA>().geneColor = new DNA.GeneColor(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            go.GetComponent<DNA>().geneSize = new DNA.GeneSize(Random.Range(0.2f, 0.4f), Random.Range(0.2f, 0.4f));
 			population.Add(go);
 		}
 	}
@@ -37,12 +39,37 @@ public class PopulationManager : MonoBehaviour {
         GameObject offspring = Instantiate(personPrefab, pos, Quaternion.identity);
         DNA dna1 = parent1.GetComponent<DNA>();
         DNA dna2 = parent2.GetComponent<DNA>();
-        //swap the parents DNA
-        offspring.GetComponent<DNA>().geneColor = new DNA.GeneColor(Random.Range(0, 10) < 5 ? dna1.geneColor.r : dna2.geneColor.r,
-                                                                    Random.Range(0, 10) < 5 ? dna1.geneColor.g : dna2.geneColor.g,
-                                                                    Random.Range(0, 10) < 5 ? dna1.geneColor.b : dna2.geneColor.b);
+
+        //swap the parent's gene information
+        offspring.GetComponent<DNA>().geneColor = GetOffspringGeneColor(dna1, dna2);
+        offspring.GetComponent<DNA>().geneSize = GetOffspringGeneSize(dna1, dna2);
 
         return offspring;
+    }
+
+    DNA.GeneColor GetOffspringGeneColor(DNA parent1, DNA parent2)
+    {
+        // 30% of the time, use the parent's gene's, else lets go for a random mutation.
+        if(Random.Range(0,10) > 1)
+        {
+            return new DNA.GeneColor(Random.Range(0, 10) < 5 ? parent1.geneColor.r : parent2.geneColor.r,
+                                     Random.Range(0, 10) < 5 ? parent1.geneColor.g : parent2.geneColor.g,
+                                     Random.Range(0, 10) < 5 ? parent1.geneColor.b : parent2.geneColor.b);
+        }
+        return new DNA.GeneColor(Random.Range(0.0f, 1.0f),
+                                 Random.Range(0.0f, 1.0f),
+                                 Random.Range(0.0f, 1.0f));
+    }
+
+    DNA.GeneSize GetOffspringGeneSize(DNA parent1, DNA parent2)
+    {
+        // 70% of the time, use the parent's gene's, else lets go for a random mutation.
+        if(Random.Range(0,10) > 1)
+        {
+            return new DNA.GeneSize(Random.Range(1,10) < 5 ? parent1.geneSize.x : parent2.geneSize.x,
+                                    Random.Range(1,10) < 5 ? parent1.geneSize.y : parent2.geneSize.y);
+        }
+        return new DNA.GeneSize(Random.Range(0.2f, 0.4f), Random.Range(0.2f, 0.4f));
     }
 
     void BreedNewPopulation()
